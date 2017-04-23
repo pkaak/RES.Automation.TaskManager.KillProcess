@@ -1,0 +1,521 @@
+<?xml version="1.0"?>
+<!-- RES ONE Automation Building Blocks -->
+<!-- Created by demo\administrator on 4/23/2017 9:33:36 PM -->
+<AutomationManager>
+	<buildingblock version="3.0">
+		<projects/>
+		<modules>
+			<module>
+				<properties>
+					<guid>{ABFEBDCB-B3E7-4A3A-BAF0-05DF19089181}</guid>
+					<name>Kill process</name>
+					<enabled>yes</enabled>
+					<description/>
+					<version>1.0.0</version>
+					<versioncomment>Initial version</versioncomment>
+					<properties>
+						<separators/>
+					</properties>
+					<folderpath>
+						<folder>
+							<name>Taskmanager</name>
+							<description/>
+							<guid>{E0396BE3-FCF6-4232-B228-09A5FF63E4FB}</guid>
+						</folder>
+					</folderpath>
+					<deleteusedresources>yes</deleteusedresources>
+				</properties>
+				<tasks>
+					<task hidden="yes">
+						<limitinvoke>no</limitinvoke>
+						<parameters>
+							<param>
+								<name>ExitCode</name>
+								<type>0</type>
+								<description/>
+								<selection/>
+								<inputtiming>
+									<importbb showprev="yes">no</importbb>
+									<schedulejob showprev="yes">no</schedulejob>
+								</inputtiming>
+							</param>
+							<param>
+								<name>id</name>
+								<value1/>
+								<value2/>
+								<value3/>
+								<type>0</type>
+								<description>idnr of the process to kill</description>
+								<hint>Please provide the necessary input</hint>
+								<selection/>
+								<inputtiming>
+									<importbb showprev="no" eraseprev="no">no</importbb>
+									<schedulejob showprev="yes" eraseprev="no">yes</schedulejob>
+								</inputtiming>
+								<inputoptions>
+									<confirm>no</confirm>
+									<force>no</force>
+									<required>no</required>
+									<validation>no</validation>
+								</inputoptions>
+							</param>
+						</parameters>
+						<conditions>
+							<condition guid="{A029B683-2A6B-4619-A507-A8110E752DB2}">
+								<expressions/>
+								<operator>AND</operator>
+								<actiontrue>3</actiontrue>
+								<when>0</when>
+								<action>3</action>
+								<enabled>yes</enabled>
+							</condition>
+						</conditions>
+						<variablescontainer></variablescontainer>
+					</task>
+					<task>
+						<properties>
+							<type>PWRSHELL</type>
+							<guid>{A029B683-2A6B-4619-A507-A8110E752DB2}</guid>
+							<description>Execute Windows PowerShell Script</description>
+							<enabled>yes</enabled>
+							<comments/>
+							<onerror>fail</onerror>
+						</properties>
+						<settings>
+							<username/>
+							<password encrypted="yes"/>
+							<usescript>yes</usescript>
+							<source>$id = '$[id]'
+
+Stop-Process -id $id -force
+</source>
+							<scriptext>ps1</scriptext>
+							<outputwidth>80</outputwidth>
+							<timeout>10</timeout>
+							<terminate>no</terminate>
+							<setexitcodeparameter parse="no">$[ExitCode]</setexitcodeparameter>
+							<snapins/>
+							<overrideexecutionpolicy>no</overrideexecutionpolicy>
+							<usex86psonx64>no</usex86psonx64>
+						</settings>
+					</task>
+				</tasks>
+			</module>
+			<module>
+				<properties>
+					<guid>{5D0DB2B7-BF45-4EF2-B5E0-1581ED37D46B}</guid>
+					<name>List Tasks of specific user</name>
+					<enabled>yes</enabled>
+					<description/>
+					<version>1.0.1</version>
+					<versioncomment>Updated version</versioncomment>
+					<properties>
+						<separators/>
+					</properties>
+					<folderpath>
+						<folder>
+							<name>Taskmanager</name>
+							<description/>
+							<guid>{E0396BE3-FCF6-4232-B228-09A5FF63E4FB}</guid>
+						</folder>
+					</folderpath>
+					<deleteusedresources>yes</deleteusedresources>
+				</properties>
+				<tasks>
+					<task hidden="yes">
+						<limitinvoke>no</limitinvoke>
+						<parameters>
+							<param>
+								<name>TaskList</name>
+								<value1/>
+								<value2/>
+								<value3/>
+								<type>0</type>
+								<description/>
+								<hint>Please provide the necessary input</hint>
+								<selection/>
+								<inputtiming>
+									<importbb showprev="no" eraseprev="no">no</importbb>
+									<schedulejob showprev="no" eraseprev="no">no</schedulejob>
+								</inputtiming>
+								<inputoptions>
+									<confirm>no</confirm>
+									<force>no</force>
+									<required>no</required>
+									<validation>no</validation>
+								</inputoptions>
+							</param>
+							<param>
+								<name>username</name>
+								<value1/>
+								<value2/>
+								<value3/>
+								<type>0</type>
+								<description>Username without domainname</description>
+								<hint>Please provide the necessary input</hint>
+								<selection/>
+								<inputtiming>
+									<importbb showprev="no" eraseprev="no">no</importbb>
+									<schedulejob showprev="yes" eraseprev="no">yes</schedulejob>
+								</inputtiming>
+								<inputoptions>
+									<confirm>no</confirm>
+									<force>yes</force>
+									<required>no</required>
+									<validation>no</validation>
+								</inputoptions>
+							</param>
+							<param>
+								<name>Filter</name>
+								<value1>host;vmtoolsd;explorer;taskeng;guardian;pfws;dwm;igstub</value1>
+								<value2/>
+								<value3/>
+								<type>0</type>
+								<description>Please provide a list of (partial) processnames that should be filtered out in the tasklist. Seperate processnames by a semicolon ( ; )</description>
+								<hint>Please provide the necessary input</hint>
+								<selection/>
+								<inputtiming>
+									<importbb showprev="no" eraseprev="no">no</importbb>
+									<schedulejob showprev="yes" eraseprev="no">yes</schedulejob>
+								</inputtiming>
+								<inputoptions>
+									<confirm>no</confirm>
+									<force>no</force>
+									<required>no</required>
+									<validation>no</validation>
+								</inputoptions>
+							</param>
+							<param>
+								<name>ExitCode</name>
+								<type>0</type>
+								<description/>
+								<selection/>
+								<inputtiming>
+									<importbb showprev="yes">no</importbb>
+									<schedulejob showprev="yes">no</schedulejob>
+								</inputtiming>
+							</param>
+						</parameters>
+						<conditions>
+							<condition guid="{F56F1864-AC6D-4DD5-996C-6D1DF6D8CA49}">
+								<expressions/>
+								<operator>AND</operator>
+								<actiontrue>3</actiontrue>
+								<when>0</when>
+								<action>3</action>
+								<enabled>yes</enabled>
+							</condition>
+						</conditions>
+						<variablescontainer></variablescontainer>
+					</task>
+					<task>
+						<properties>
+							<type>PWRSHELL</type>
+							<guid>{F56F1864-AC6D-4DD5-996C-6D1DF6D8CA49}</guid>
+							<description>Execute Windows PowerShell Script</description>
+							<enabled>yes</enabled>
+							<comments/>
+							<onerror>fail</onerror>
+						</properties>
+						<settings>
+							<username/>
+							<password encrypted="yes"/>
+							<usescript>yes</usescript>
+							<source>#gives all processes runned by user in format for ROID to handle
+
+#variables
+$username = '$[username]'                         #username to filter processes on
+$filterlist = '$[Filter]'                     #filter with processes that do not need to be shown
+
+$returnlist = ''
+$filter = $filterlist.split(';')
+
+#get processlist on machine
+#needs admin rights
+$processlist = Get-Process -IncludeUserName
+
+for ($count=0;$count -lt $processlist.Length; $count++) {
+    if ($processlist[$count].username -match $username) 
+    {
+     #check processname with filterlist
+        $found=''
+        $filter|foreach{
+            if ($processlist[$count].ProcessName -match $_){
+                #match found
+                $found='true'
+            }
+        }
+
+     if ($found -notmatch 'true')     
+        {
+	        $returnlist = $returnlist + $processlist[$count].ProcessName + ';' + $processlist[$count].ID + '|'
+        }
+    }
+}
+$returnlist = $returnlist.TrimEnd('|')
+$returnlist</source>
+							<scriptext>ps1</scriptext>
+							<outputwidth>80</outputwidth>
+							<timeout>10</timeout>
+							<terminate>no</terminate>
+							<setexitcodeparameter parse="no">$[ExitCode]</setexitcodeparameter>
+							<setoutparameter parse="no">$[TaskList]</setoutparameter>
+							<snapins/>
+							<overrideexecutionpolicy>no</overrideexecutionpolicy>
+							<usex86psonx64>no</usex86psonx64>
+						</settings>
+					</task>
+				</tasks>
+			</module>
+		</modules>
+		<resources/>
+		<runbooks>
+			<runbook>
+				<properties>
+					<guid>{398EAEE2-5AEA-4599-80F9-A6F4FDC20E9C}</guid>
+					<name>Kill process</name>
+					<enabled>yes</enabled>
+					<description/>
+					<version>1.0.0</version>
+					<versioncomment>Initial version</versioncomment>
+					<properties>
+						<parameters>
+							<param ref="module" guid="{ABFEBDCB-B3E7-4A3A-BAF0-05DF19089181}" name="Kill process" linked="no">
+								<name>ExitCode</name>
+								<type>0</type>
+								<description/>
+								<inputtiming>
+									<importbb showprev="yes">no</importbb>
+									<schedulejob showprev="yes">no</schedulejob>
+								</inputtiming>
+								<selection>
+									<module guid="{ABFEBDCB-B3E7-4A3A-BAF0-05DF19089181}" type="module" linktype="2">
+										<param>ExitCode</param>
+									</module>
+								</selection>
+							</param>
+							<param ref="module" guid="{ABFEBDCB-B3E7-4A3A-BAF0-05DF19089181}" name="Kill process" linked="no">
+								<name>id</name>
+								<value1/>
+								<value2/>
+								<value3/>
+								<type>0</type>
+								<description>idnr of the process to kill</description>
+								<hint>Please provide the necessary input</hint>
+								<inputtiming>
+									<importbb showprev="no" eraseprev="no">no</importbb>
+									<schedulejob showprev="yes" eraseprev="no">yes</schedulejob>
+								</inputtiming>
+								<inputoptions>
+									<confirm>no</confirm>
+									<force>no</force>
+									<required>no</required>
+									<validation>no</validation>
+								</inputoptions>
+								<selection>
+									<module guid="{ABFEBDCB-B3E7-4A3A-BAF0-05DF19089181}" type="module">
+										<param>id</param>
+									</module>
+								</selection>
+							</param>
+						</parameters>
+						<jobs>
+							<job>
+								<guid>{91CF36E4-C133-4FD6-987A-D9697B8D2EC1}</guid>
+								<properties>
+									<enabled>yes</enabled>
+									<name>Kill process</name>
+									<timeout>0</timeout>
+									<offlineagentsnextboot>no</offlineagentsnextboot>
+									<wol>no</wol>
+									<selectoneagent>no</selectoneagent>
+									<what type="module">{ABFEBDCB-B3E7-4A3A-BAF0-05DF19089181}</what>
+									<whatname>Kill process</whatname>
+									<who type=""></who>
+									<whoname></whoname>
+									<onerror>fail</onerror>
+								</properties>
+							</job>
+						</jobs>
+						<separators/>
+						<limitinvoke>no</limitinvoke>
+					</properties>
+					<folderpath>
+						<folder>
+							<name>Taskmanager</name>
+							<description/>
+							<guid>{C0C7E531-DDCE-45B0-9BA5-94B57CF2FD88}</guid>
+						</folder>
+					</folderpath>
+				</properties>
+			</runbook>
+			<runbook>
+				<properties>
+					<guid>{2B1657D7-8F57-4C48-8467-CC1DB945097C}</guid>
+					<name>List all processes of a user</name>
+					<enabled>yes</enabled>
+					<description/>
+					<version>1.0.7</version>
+					<versioncomment>Updated version</versioncomment>
+					<properties>
+						<parameters>
+							<param>
+								<name>RunBookWho</name>
+								<value1/>
+								<value2/>
+								<value3/>
+								<type>0</type>
+								<description/>
+								<hint/>
+								<selection/>
+								<inputtiming>
+									<importbb showprev="no" eraseprev="no">no</importbb>
+									<schedulejob showprev="no" eraseprev="no">no</schedulejob>
+								</inputtiming>
+								<inputoptions>
+									<confirm>no</confirm>
+									<force>no</force>
+									<required>no</required>
+									<validation>no</validation>
+								</inputoptions>
+							</param>
+							<param ref="module" guid="{5D0DB2B7-BF45-4EF2-B5E0-1581ED37D46B}" name="List Tasks of specific user" linked="no">
+								<name>ExitCode</name>
+								<type>0</type>
+								<description/>
+								<inputtiming>
+									<importbb showprev="yes">no</importbb>
+									<schedulejob showprev="yes">no</schedulejob>
+								</inputtiming>
+								<selection>
+									<module guid="{5D0DB2B7-BF45-4EF2-B5E0-1581ED37D46B}" type="module" linktype="2">
+										<param>ExitCode</param>
+									</module>
+								</selection>
+							</param>
+							<param ref="module" guid="{5D0DB2B7-BF45-4EF2-B5E0-1581ED37D46B}" name="List Tasks of specific user" linked="no">
+								<name>TaskList</name>
+								<value1/>
+								<value2/>
+								<value3/>
+								<type>0</type>
+								<description/>
+								<hint>Please provide the necessary input</hint>
+								<inputtiming>
+									<importbb showprev="no" eraseprev="no">no</importbb>
+									<schedulejob showprev="no" eraseprev="no">no</schedulejob>
+								</inputtiming>
+								<inputoptions>
+									<confirm>no</confirm>
+									<force>no</force>
+									<required>no</required>
+									<validation>no</validation>
+								</inputoptions>
+								<selection>
+									<module guid="{5D0DB2B7-BF45-4EF2-B5E0-1581ED37D46B}" type="module" linktype="2">
+										<param>TaskList</param>
+									</module>
+								</selection>
+							</param>
+							<param ref="module" guid="{5D0DB2B7-BF45-4EF2-B5E0-1581ED37D46B}" name="List Tasks of specific user" linked="no">
+								<name>username</name>
+								<value1/>
+								<value2/>
+								<value3/>
+								<type>0</type>
+								<description>Username without domainname</description>
+								<hint>Please provide the necessary input</hint>
+								<inputtiming>
+									<importbb showprev="no" eraseprev="no">no</importbb>
+									<schedulejob showprev="yes" eraseprev="no">yes</schedulejob>
+								</inputtiming>
+								<inputoptions>
+									<confirm>no</confirm>
+									<force>yes</force>
+									<required>no</required>
+									<validation>no</validation>
+								</inputoptions>
+								<selection>
+									<module guid="{5D0DB2B7-BF45-4EF2-B5E0-1581ED37D46B}" type="module">
+										<param>username</param>
+									</module>
+								</selection>
+							</param>
+							<param ref="module" guid="{5D0DB2B7-BF45-4EF2-B5E0-1581ED37D46B}" name="List Tasks of specific user" linked="no">
+								<name>Filter</name>
+								<value1>host;vmtoolsd;explorer;taskeng;guardian;pfws;dwm;igstub</value1>
+								<value2/>
+								<value3/>
+								<type>0</type>
+								<description>Please provide a list of (partial) processnames that should be filtered out in the tasklist. Seperate processnames by a semicolon ( ; )</description>
+								<hint>Please provide the necessary input</hint>
+								<inputtiming>
+									<importbb showprev="no" eraseprev="no">no</importbb>
+									<schedulejob showprev="yes" eraseprev="no">yes</schedulejob>
+								</inputtiming>
+								<inputoptions>
+									<confirm>no</confirm>
+									<force>no</force>
+									<required>no</required>
+									<validation>no</validation>
+								</inputoptions>
+								<selection>
+									<module guid="{5D0DB2B7-BF45-4EF2-B5E0-1581ED37D46B}" type="module">
+										<param>Filter</param>
+									</module>
+								</selection>
+							</param>
+						</parameters>
+						<jobs>
+							<job>
+								<guid>{662CD8D5-3883-4308-9A82-16FB85C770A2}</guid>
+								<properties>
+									<enabled>yes</enabled>
+									<name>List Tasks of specific user</name>
+									<timeout>0</timeout>
+									<offlineagentsnextboot>no</offlineagentsnextboot>
+									<wol>no</wol>
+									<selectoneagent>no</selectoneagent>
+									<what type="module">{5D0DB2B7-BF45-4EF2-B5E0-1581ED37D46B}</what>
+									<whatname>List Tasks of specific user</whatname>
+									<who/>
+									<whoname></whoname>
+									<onerror>fail</onerror>
+								</properties>
+							</job>
+						</jobs>
+						<separators/>
+						<limitinvoke>no</limitinvoke>
+					</properties>
+					<folderpath>
+						<folder>
+							<name>Taskmanager</name>
+							<description/>
+							<guid>{C0C7E531-DDCE-45B0-9BA5-94B57CF2FD88}</guid>
+						</folder>
+					</folderpath>
+				</properties>
+			</runbook>
+		</runbooks>
+		<teams/>
+		<projectfolders/>
+		<modulefolders>
+			<folder>
+				<guid>{E0396BE3-FCF6-4232-B228-09A5FF63E4FB}</guid>
+				<name>Taskmanager</name>
+				<description/>
+				<parent/>
+			</folder>
+		</modulefolders>
+		<resourcefolders/>
+		<runbookfolders>
+			<folder>
+				<guid>{C0C7E531-DDCE-45B0-9BA5-94B57CF2FD88}</guid>
+				<name>Taskmanager</name>
+				<description/>
+				<parent/>
+			</folder>
+		</runbookfolders>
+		<teamfolders/>
+	</buildingblock>
+</AutomationManager>
